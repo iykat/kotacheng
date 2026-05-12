@@ -3,18 +3,41 @@ const devBanner = document.getElementById('devBanner');
 const devBannerClose = document.getElementById('devBannerClose');
 const DEV_BANNER_KEY = 'kotacheng-dev-banner-dismissed';
 
-if (devBanner && localStorage.getItem(DEV_BANNER_KEY) !== '1') {
+function updateDevBannerHeight() {
+    if (!devBanner || devBanner.hidden) return;
+    const h = devBanner.offsetHeight;
+    document.documentElement.style.setProperty('--dev-banner-height', h + 'px');
+}
+
+function showDevBanner() {
+    if (!devBanner) return;
     devBanner.hidden = false;
+    document.body.classList.add('has-dev-banner');
+    updateDevBannerHeight();
+}
+
+function hideDevBanner() {
+    if (!devBanner) return;
+    devBanner.hidden = true;
+    document.body.classList.remove('has-dev-banner');
+}
+
+if (devBanner && localStorage.getItem(DEV_BANNER_KEY) !== '1') {
+    showDevBanner();
 }
 
 devBannerClose?.addEventListener('click', () => {
-    devBanner.hidden = true;
+    hideDevBanner();
     try {
         localStorage.setItem(DEV_BANNER_KEY, '1');
     } catch (_) {
         // localStorage unavailable (private mode, etc.) — banner stays dismissed for session only
     }
 });
+
+// Re-measure banner height on resize (font load / orientation change can shift it)
+window.addEventListener('resize', updateDevBannerHeight, { passive: true });
+window.addEventListener('load', updateDevBannerHeight);
 
 // Sticky header on scroll
 const stickyHeader = document.getElementById('stickyHeader');

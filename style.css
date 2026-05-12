@@ -57,11 +57,19 @@ body {
    DEV BANNER (Site-in-progress notice)
 ============================================ */
 .dev-banner {
+    position: sticky;
+    top: 0;
+    z-index: 1001;
     background: var(--charcoal);
     color: rgba(255, 255, 255, 0.92);
     font-family: 'IBM Plex Mono', monospace;
     font-size: 0.75rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* When the banner is shown, push the sticky header below it */
+body.has-dev-banner .sticky-header {
+    top: var(--dev-banner-height, 40px);
 }
 
 .dev-banner[hidden] {
