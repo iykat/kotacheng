@@ -1,3 +1,21 @@
+// Dev banner — show unless previously dismissed
+const devBanner = document.getElementById('devBanner');
+const devBannerClose = document.getElementById('devBannerClose');
+const DEV_BANNER_KEY = 'kotacheng-dev-banner-dismissed';
+
+if (devBanner && localStorage.getItem(DEV_BANNER_KEY) !== '1') {
+    devBanner.hidden = false;
+}
+
+devBannerClose?.addEventListener('click', () => {
+    devBanner.hidden = true;
+    try {
+        localStorage.setItem(DEV_BANNER_KEY, '1');
+    } catch (_) {
+        // localStorage unavailable (private mode, etc.) — banner stays dismissed for session only
+    }
+});
+
 // Sticky header on scroll
 const stickyHeader = document.getElementById('stickyHeader');
 let lastScroll = 0;

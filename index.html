@@ -18,6 +18,20 @@
 </head>
 <body>
     <!-- ============================================
+         DEV BANNER (Site-in-progress notice)
+    ============================================ -->
+    <section class="dev-banner" id="devBanner" aria-label="Site status notice" hidden>
+        <div class="container dev-banner-inner">
+            <span class="dev-banner-label">
+                <span class="dev-banner-dot" aria-hidden="true"></span>
+                In Development
+            </span>
+            <span class="dev-banner-text">This site is a work in progress — content and features may change.</span>
+            <button type="button" class="dev-banner-close" id="devBannerClose" aria-label="Dismiss development notice">&times;</button>
+        </div>
+    </section>
+
+    <!-- ============================================
          STICKY HEADER (Appears on scroll)
     ============================================ -->
     <header class="sticky-header" id="stickyHeader">

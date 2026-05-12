@@ -54,6 +54,91 @@ body {
 }
 
 /* ============================================
+   DEV BANNER (Site-in-progress notice)
+============================================ */
+.dev-banner {
+    background: var(--charcoal);
+    color: rgba(255, 255, 255, 0.92);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.dev-banner[hidden] {
+    display: none;
+}
+
+.dev-banner-inner {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 10px clamp(16px, 5vw, 24px);
+}
+
+.dev-banner-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--brass-light);
+    font-weight: 500;
+    flex-shrink: 0;
+}
+
+.dev-banner-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--brass-light);
+    animation: pulse 2s infinite;
+}
+
+.dev-banner-text {
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'DM Sans', system-ui, sans-serif;
+    letter-spacing: 0;
+    text-transform: none;
+    font-size: 0.8125rem;
+    flex: 1;
+    min-width: 0;
+}
+
+.dev-banner-close {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1.25rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: color 0.2s ease, background-color 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+    flex-shrink: 0;
+}
+
+.dev-banner-close:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.dev-banner-close:focus-visible {
+    outline: 2px solid var(--brass-light);
+    outline-offset: 2px;
+}
+
+@media (max-width: 640px) {
+    .dev-banner-text {
+        display: none;
+    }
+
+    .dev-banner-inner {
+        justify-content: space-between;
+    }
+}
+
+/* ============================================
    STICKY HEADER WITH CTA (Always visible)
 ============================================ */
 .sticky-header {
