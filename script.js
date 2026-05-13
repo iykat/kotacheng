@@ -1,7 +1,5 @@
-// Dev banner — show unless previously dismissed
+// Dev banner — always shown (non-dismissable)
 const devBanner = document.getElementById('devBanner');
-const devBannerClose = document.getElementById('devBannerClose');
-const DEV_BANNER_KEY = 'kotacheng-dev-banner-dismissed';
 
 function updateDevBannerHeight() {
     if (!devBanner || devBanner.hidden) return;
@@ -9,31 +7,16 @@ function updateDevBannerHeight() {
     document.documentElement.style.setProperty('--dev-banner-height', h + 'px');
 }
 
-function showDevBanner() {
-    if (!devBanner) return;
+if (devBanner) {
     devBanner.hidden = false;
     document.body.classList.add('has-dev-banner');
     updateDevBannerHeight();
 }
 
-function hideDevBanner() {
-    if (!devBanner) return;
-    devBanner.hidden = true;
-    document.body.classList.remove('has-dev-banner');
-}
-
-if (devBanner && localStorage.getItem(DEV_BANNER_KEY) !== '1') {
-    showDevBanner();
-}
-
-devBannerClose?.addEventListener('click', () => {
-    hideDevBanner();
-    try {
-        localStorage.setItem(DEV_BANNER_KEY, '1');
-    } catch (_) {
-        // localStorage unavailable (private mode, etc.) — banner stays dismissed for session only
-    }
-});
+// Clear stale dismissal flag from previous version so returning users see the banner
+try {
+    localStorage.removeItem('kotacheng-dev-banner-dismissed');
+} catch (_) { /* localStorage unavailable */ }
 
 // Re-measure banner height on resize (font load / orientation change can shift it)
 window.addEventListener('resize', updateDevBannerHeight, { passive: true });
